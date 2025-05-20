@@ -41,6 +41,8 @@ import os
 import traceback
 import json
 
+from scripts.visual_studio_finder import start_vscode_path_resolution
+
 try:
     from termcolor import cprint
 except Exception as e:
@@ -60,7 +62,12 @@ class JaaCore:
         self.jaaRootFolder = os.path.dirname(root_file)
         self.jaaOptionsPath = self.jaaRootFolder + os.path.sep + "options"
         self.jaaShowTracebackOnPluginErrors = False
+        self.resolve_vscode_path()
         cprint("JAA.PY v{0} class created!".format(version), "blue")
+
+    def resolve_vscode_path(self):
+        json_path = os.path.join(self.jaaOptionsPath, "plugin_visual_studio_code_open.json")
+        start_vscode_path_resolution(json_path)
 
     # ------------- plugins -----------------
     def init_plugins(self, list_first_plugins=[]):
@@ -76,7 +83,6 @@ class JaaCore:
         files = [f for f in listdir(pluginpath) if isfile(join(pluginpath, f))]
 
         for fil in files:
-            # print fil[:-3]
             if fil.startswith(self.jaaPluginPrefix) and fil.endswith(".py"):
                 modfile = fil[:-3]
                 self.init_plugin(modfile)

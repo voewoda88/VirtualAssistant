@@ -1,21 +1,19 @@
-# MIT License
-# Janvarev Vladislav
-#
-# library for translate all digits in text to pronounce
 
 import re
 
-#from utils.num_to_text_ru import num2text
 from lingua_franca.format import pronounce_number
 
-def load_language(lang:str):
+
+def load_language(lang: str):
     import lingua_franca
     lingua_franca.load_language(lang)
+
 
 def convert_one_num_float(match_obj):
     if match_obj.group() is not None:
         text = str(match_obj.group())
         return pronounce_number(float(match_obj.group()))
+
 
 def convert_diapazon(match_obj):
     if match_obj.group() is not None:
@@ -24,7 +22,7 @@ def convert_diapazon(match_obj):
         return all_num_to_text(text)
 
 
-def all_num_to_text(text:str) -> str:
+def all_num_to_text(text: str) -> str:
     text = re.sub(r'[\d]*[.][\d]+-[\d]*[.][\d]+', convert_diapazon, text)
     text = re.sub(r'-[\d]*[.][\d]+', convert_one_num_float, text)
     text = re.sub(r'[\d]*[.][\d]+', convert_one_num_float, text)
@@ -33,6 +31,7 @@ def all_num_to_text(text:str) -> str:
     text = re.sub(r'[\d]+', convert_one_num_float, text)
     text = text.replace("%", " процентов")
     return text
+
 
 if __name__ == "__main__":
     load_language("ru")

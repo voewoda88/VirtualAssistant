@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-'''
-Created on 04.07.2011
-Changed on 13.03.2016 by Artem Tiumentcev
 
-@author: Sergey Prokhorov <me@seriyps.ru>
-'''
 import decimal
 
 
@@ -121,6 +116,7 @@ def decimal2text(value, places=2,
     return u'{} {}'.format(
         num2text(int(integral), int_units),
         num2text(int(exp), exp_units))
+
 
 if __name__ == '__main__':
     import sys

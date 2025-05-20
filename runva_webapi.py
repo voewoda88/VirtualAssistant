@@ -41,7 +41,7 @@ returnFormat Варианты:
 """
 
 
-def runCmd(cmd:str,returnFormat:str):
+def runCmd(cmd: str,returnFormat: str):
     if core.logPolicy == "cmd" or core.logPolicy == "all":
         print("Running cmd: ",cmd)
 
